@@ -10,8 +10,10 @@ public class FPSController : MonoBehaviour
     public float runSpeed = 12f;
     public float jumpPower = 7f;
     public float gravity = 10f;
- 
- 
+    public GameObject respawn;
+    public GameObject Startingpoint;
+
+
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
  
@@ -75,5 +77,15 @@ public class FPSController : MonoBehaviour
         }
  
         #endregion
+
+
+    }
+    private void OnTriggerEnter(Collider Other)
+    {
+        if (Other.tag == "Respawn")
+        {
+            transform.position = Startingpoint.transform.position;
+        }
+
     }
 }

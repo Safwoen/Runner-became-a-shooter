@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject respawn;
+    public GameObject Startingpoint;
     void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider Other) 
     {
-        
+        if (Other.tag == "Respawn")
+        {
+            transform.position = Startingpoint.transform.position;
+        }
+
     }
 }
