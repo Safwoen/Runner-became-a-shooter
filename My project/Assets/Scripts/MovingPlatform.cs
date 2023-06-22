@@ -16,36 +16,27 @@ public class MovingPlatform : MonoBehaviour
         myPlatform.position = myStartPoint.position;
     }
 
-    // Update is called once per frame
-    private void OnColliderEnter (Collider other)
-    {
-        other.transform.SetParent(transform);
-    }
-
-    private void OnColliderExit(Collider other)
-    {
-        other.transform.SetParent(null);
-    }
-
 
     void Update()
     {
-        if (isReversing == false)
-        {
-            myPlatform.position = Vector3.MoveTowards(myPlatform.position, myEndPoint.position, speed);
-
-            if(myPlatform.position == myEndPoint.position)
+        if (myPlatform!= null) {
+            if (isReversing == false)
             {
-                isReversing = true;
+                myPlatform.position = Vector3.MoveTowards(myPlatform.position, myEndPoint.position, speed);
+
+                if(myPlatform.position == myEndPoint.position)
+                {
+                    isReversing = true;
+                }
             }
-        }
-        else
-        {
-            myPlatform.position = Vector3.MoveTowards(myPlatform.position, myStartPoint.position, speed);
-
-            if (myPlatform.position == myStartPoint.position)
+            else
             {
-                isReversing = false;
+                myPlatform.position = Vector3.MoveTowards(myPlatform.position, myStartPoint.position, speed);
+
+                if (myPlatform.position == myStartPoint.position)
+                {
+                    isReversing = false;
+                }
             }
         }
     }

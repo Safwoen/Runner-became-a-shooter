@@ -88,4 +88,11 @@ public class FPSController : MonoBehaviour
         }
 
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        transform.parent = hit.gameObject.transform;
+
+
+    }
 }
