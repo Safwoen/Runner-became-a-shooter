@@ -17,6 +17,17 @@ public class MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void OnColliderEnter (Collider other)
+    {
+        other.transform.SetParent(transform);
+    }
+
+    private void OnColliderExit(Collider other)
+    {
+        other.transform.SetParent(null);
+    }
+
+
     void Update()
     {
         if (isReversing == false)
@@ -38,4 +49,6 @@ public class MovingPlatform : MonoBehaviour
             }
         }
     }
+
+    
 }
