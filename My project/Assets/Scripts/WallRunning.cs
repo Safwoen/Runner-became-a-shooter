@@ -43,7 +43,7 @@ public class WallRunning : MonoBehaviour
     }
     private void  StopWallRun()
     {
-        player.gravity = 10f;
+        player.gravity = 15f;
         rb.useGravity = true;
         isWallRunning = false;
     }

@@ -12,6 +12,7 @@ public class FPSController : MonoBehaviour
     public float gravity = 10f;
     public GameObject respawn;
     public GameObject Startingpoint;
+    
 
 
     public float lookSpeed = 2f;
@@ -86,7 +87,11 @@ public class FPSController : MonoBehaviour
     {
         if (Other.tag == "Respawn")
         {
-            transform.position = Startingpoint.transform.position;
+            transform.position = Startingpoint.transform.position;        }
+
+        if (Other.gameObject.tag == "bullet")
+        {
+            Destroy(Other.gameObject);
         }
 
     }
@@ -98,9 +103,6 @@ public class FPSController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-       // if(other.tag == "Bullet")
-        {
-           
-        }
+
     }
 }
