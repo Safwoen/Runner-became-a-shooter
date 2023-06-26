@@ -16,6 +16,8 @@ public class FPSController : MonoBehaviour
 
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
+
+
  
  
     Vector3 moveDirection = Vector3.zero;
@@ -92,7 +94,13 @@ public class FPSController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         transform.parent = hit.gameObject.transform;
+    }
 
-
+    private void OnCollisionEnter(Collision collision)
+    {
+       // if(other.tag == "Bullet")
+        {
+           
+        }
     }
 }
