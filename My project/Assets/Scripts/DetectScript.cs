@@ -29,7 +29,7 @@ public class DetectScript : MonoBehaviour
         }
         timeToShoot -= Time.deltaTime;
 
-        if(timeToShoot <= 0)
+        if(timeToShoot <= 0 && detected)
         {
             ShootPlayer();
             timeToShoot = originalTime;
@@ -50,6 +50,14 @@ public class DetectScript : MonoBehaviour
         {
             detected = true;
             target = other.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            detected = false;
+            target =null;
         }
     }
 

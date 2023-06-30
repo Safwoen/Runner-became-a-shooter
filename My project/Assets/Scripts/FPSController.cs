@@ -9,7 +9,10 @@ public class FPSController : MonoBehaviour
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
     public float jumpPower = 7f;
-    public float gravity = 10f;
+    public float gravity = 20f;
+    public float dashForce;
+    public bool dashing = false;
+    public Rigidbody rb;
     public GameObject respawn;
     public GameObject Startingpoint;
     
@@ -78,11 +81,26 @@ public class FPSController : MonoBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
- 
+
         #endregion
 
+        if (dashing == false && Input.GetKeyDown(KeyCode.E))
+        {
+            StartCoroutine("Dash");
+
+        }
 
     }
+    IEnumerator Dash()
+    {
+        dashing = true;
+        rb.velocity = new Vector3(0, 0, 0); //stop player movement
+        rb.AddForce(transform.forward * dashForce, ForceMode.Impulse); //push player forward
+        yield return new WaitForSeconds(0.4f); //time for push, length of dash
+        rb.velocity = new Vector3(0, 0, 0); //stop player again
+        dashing = false; //stops player from spamming dash and going super speed
+    }
+
     private void OnTriggerEnter(Collider Other)
     {
         if (Other.tag == "Respawn")
