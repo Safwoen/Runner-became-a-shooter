@@ -10,7 +10,7 @@ public class DetectScript : MonoBehaviour
 
     public GameObject bullet;
     public Transform shootpoint;
-    public Transform Shootpoint;
+    
 
     public float shootSpeed = 10f;
     public float timeToShoot = 1.3f;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     public Transform myPlatform;
+    public Transform myplatform;
     public Transform myStartPoint;
     public Transform myEndPoint;
 
