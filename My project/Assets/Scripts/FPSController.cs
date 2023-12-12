@@ -42,8 +42,8 @@ public class FPSController : MonoBehaviour
     {
  
         #region Handles Movment
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 forward = transform.TransformDirection(Vector3.forward*200);
+        Vector3 right = transform.TransformDirection(Vector3.right*200);
  
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
@@ -72,7 +72,7 @@ public class FPSController : MonoBehaviour
         #endregion
  
         #region Handles Rotation
-        characterController.Move(moveDirection * Time.deltaTime);
+        rb.velocity = (moveDirection * Time.deltaTime);
  
         if (canMove)
         {
