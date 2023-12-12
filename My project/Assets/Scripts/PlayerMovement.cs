@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject respawn;
 	public GameObject Startingpoint;
     public GameObject DeathUI;
+	public float Wl;
 
     [Space(10)]
 
@@ -317,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		MonoBehaviour.print("cancelled");
 		Invoke("GetReadyToWallrun", 0.1f);
-		rb.AddForce(wallNormalVector * 0f);
+		rb.AddForce(wallNormalVector * Wl);
 		readyToWallrun = false;
 	}
 
