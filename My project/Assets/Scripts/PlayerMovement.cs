@@ -2,38 +2,41 @@ using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
-{   
-    [Header("Assignables")]
-    //Assignables
+{
+	[Header("Assignables")]
+	//Assignables
 	public Transform playerCam;
 	public Transform orientation;
 	private Collider playerCollider;
 	public Rigidbody rb;
+	public GameObject respawn;
+	public GameObject Startingpoint;
+    public GameObject DeathUI;
 
     [Space(10)]
 
 	public LayerMask whatIsGround;
 	public LayerMask whatIsWallrunnable;
 
-    [Header("MovementSettings")]
-    //Movement Settings 
-	public float sensitivity = 50f, moveSpeed = 4500f,walkSpeed = 20f,runSpeed = 10f,jumpForce = 250f;
+	[Header("MovementSettings")]
+	//Movement Settings 
+	public float sensitivity = 50f, moveSpeed = 4500f, walkSpeed = 20f, runSpeed = 10f, jumpForce = 250f;
 	public bool grounded, onWall;
 
 
-    //Private Floats
-    private float wallRunGravity = 1f,maxSlopeAngle = 35f, wallRunRotation, slideSlowdown = 0.2f,actualWallRotation,wallRotationVel,desiredX,xRotation,sensMultiplier = 1f, jumpCooldown = 0.25f,x,y,vel;
+	//Private Floats
+	private float wallRunGravity = 1f, maxSlopeAngle = 35f, wallRunRotation, slideSlowdown = 0.2f, actualWallRotation, wallRotationVel, desiredX, xRotation, sensMultiplier = 1f, jumpCooldown = 0.25f, x, y, vel;
 
-    //Private bools
-	private bool readyToJump,jumping,sprinting,crouching, wallRunning,cancelling,readyToWallrun = true,airborne,onGround,surfing,cancellingGrounded, cancellingWall,cancellingSurf;
+	//Private bools
+	private bool readyToJump, jumping, sprinting, crouching, wallRunning, cancelling, readyToWallrun = true, airborne, onGround, surfing, cancellingGrounded, cancellingWall, cancellingSurf;
 
-    //Private Vector3's
-	private Vector3 grapplePoint,normalVector,wallNormalVector,wallRunPos,previousLookdir;
+	//Private Vector3's
+	private Vector3 grapplePoint, normalVector, wallNormalVector, wallRunPos, previousLookdir;
 
-    //Private int
+	//Private int
 	private int nw;
-    
-    //Instance
+
+	//Instance
 	public static PlayerMovement Instance { get; private set; }
 
 	private void Awake()
@@ -53,25 +56,25 @@ public class PlayerMovement : MonoBehaviour
 
 	private void LateUpdate()
 	{
-        //For wallrunning
-	    WallRunning();
+		//For wallrunning
+		WallRunning();
 	}
 
 	private void FixedUpdate()
 	{
-        //For moving
+		//For moving
 		Movement();
 	}
 
 	private void Update()
 	{
-        //Input
+		//Input
 		MyInput();
-        //Looking around
+		//Looking around
 		Look();
 	}
 
-    //Player input
+	//Player input
 	private void MyInput()
 	{
 		x = Input.GetAxisRaw("Horizontal");
@@ -88,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-    //Scale player down
+	//Scale player down
 	private void StartCrouch()
 	{
 		float num = 400f;
@@ -100,14 +103,14 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-    //Scale player to original size
+	//Scale player to original size
 	private void StopCrouch()
 	{
 		base.transform.localScale = new Vector3(1f, 1.5f, 1f);
 		base.transform.position = new Vector3(base.transform.position.x, base.transform.position.y + 0.5f, base.transform.position.z);
 	}
 
-    //Moving around with WASD
+	//Moving around with WASD
 	private void Movement()
 	{
 		rb.AddForce(Vector3.down * Time.deltaTime * 10f);
@@ -170,43 +173,43 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * num4);
 	}
 
-    //Ready to jump again
+	//Ready to jump again
 	private void ResetJump()
 	{
 		readyToJump = true;
 	}
 
-    //Player go fly
+	//Player go fly
 	private void Jump()
 	{
-        if ((grounded || wallRunning || surfing) && readyToJump)
+		if ((grounded || wallRunning || surfing) && readyToJump)
 		{
-		    MonoBehaviour.print("jumping");
-		    Vector3 velocity = rb.velocity;
-		    readyToJump = false;
-		    rb.AddForce(Vector2.up * jumpForce * 1.5f);
-		    rb.AddForce(normalVector * jumpForce * 0.5f);
-		    if (rb.velocity.y < 0.5f)
-		    {
-			    rb.velocity = new Vector3(velocity.x, 0f, velocity.z);
-		    }
-		    else if (rb.velocity.y > 0f)
-		    {
-			    rb.velocity = new Vector3(velocity.x, velocity.y / 2f, velocity.z);
-		    }
-		    if (wallRunning)
-		    {
-			    rb.AddForce(wallNormalVector * jumpForce * 3f);
-		    }
-		    Invoke("ResetJump", jumpCooldown);
-		    if (wallRunning)
-		    {
-			    wallRunning = false;
-		    }
-        }
+			MonoBehaviour.print("jumping");
+			Vector3 velocity = rb.velocity;
+			readyToJump = false;
+			rb.AddForce(Vector2.up * jumpForce * 1.5f);
+			rb.AddForce(normalVector * jumpForce * 0.5f);
+			if (rb.velocity.y < 0.5f)
+			{
+				rb.velocity = new Vector3(velocity.x, 0f, velocity.z);
+			}
+			else if (rb.velocity.y > 0f)
+			{
+				rb.velocity = new Vector3(velocity.x, velocity.y / 2f, velocity.z);
+			}
+			if (wallRunning)
+			{
+				rb.AddForce(wallNormalVector * jumpForce * 3f);
+			}
+			Invoke("ResetJump", jumpCooldown);
+			if (wallRunning)
+			{
+				wallRunning = false;
+			}
+		}
 	}
 
-    //Looking around by using your mouse
+	//Looking around by using your mouse
 	private void Look()
 	{
 		float num = Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
@@ -220,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
 		orientation.transform.localRotation = Quaternion.Euler(0f, desiredX, 0f);
 	}
 
-    //Make the player movement feel good 
+	//Make the player movement feel good 
 	private void CounterMovement(float x, float y, Vector2 mag)
 	{
 		if (!grounded || jumping)
@@ -314,7 +317,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		MonoBehaviour.print("cancelled");
 		Invoke("GetReadyToWallrun", 0.1f);
-		rb.AddForce(wallNormalVector * 600f);
+		rb.AddForce(wallNormalVector * 0f);
 		readyToWallrun = false;
 	}
 
@@ -470,5 +473,20 @@ public class PlayerMovement : MonoBehaviour
 	public Rigidbody GetRb()
 	{
 		return rb;
+	}
+
+	private void OnTriggerEnter(Collider Other)
+	{
+		if (Other.tag == "Respawn")
+		{
+			transform.position = Startingpoint.transform.position;
+		}
+
+		if (Other.gameObject.tag == "bullet")
+		{
+			Destroy(Other.gameObject);
+            transform.position = Startingpoint.transform.position;
+        }
+
 	}
 }

@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Android;
 
 public class DetectScript : MonoBehaviour
 {
     bool detected;
     GameObject target;
     public Transform enemy;
+    
 
     public GameObject bullet;
     public Transform shootpoint;
-    
+    public GameObject DeathUI;
+
+
 
     public float shootSpeed = 10f;
     public float timeToShoot = 1.3f;
     float originalTime;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -69,4 +74,6 @@ public class DetectScript : MonoBehaviour
 
         rb.AddForce(transform.forward * shootSpeed, ForceMode.VelocityChange);
     }
+   
+
 }
