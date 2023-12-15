@@ -162,8 +162,8 @@ public class PlayerMovement : MonoBehaviour
 		}
 		if (wallRunning)
 		{
-			num5 = 0.3f;
-			num4 = 0.3f;
+			num5 = 0.9f;
+			num4 = 0.9f;
 		}
 		if (surfing)
 		{
