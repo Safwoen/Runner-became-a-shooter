@@ -3,16 +3,19 @@ Shader"Guidev/ToonShader"
     Properties
     {
         _Albedo("Albedo",Color) = (1, 1, 1, 1)
-        _Shades ("Shades",Range (1,20)) = 3 
+        _Shades("Shades",Range (1,20)) = 3 
+
+        _InkColor("InkColor", Color) = (0,0,0,0)
+        _InkSize("InkSize", float) = 1.0
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
 
-
-             Pass
+        Pass
             {
+                Cull Front
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -28,38 +31,34 @@ Shader"Guidev/ToonShader"
 
             struct v2f
             {
-               
              float4 vertex : SV_POSITION;
             };
 
+                float4 _InkColor;
+                float _InkSize;
             v2f vert(appdata v)
             {
                 
                   v2f o;
                 //Translate the vertex long the normal Vector 
                 // This will increase the size of the model 
-                 o.vertex = UnityObjectToClipPos(v.vertex + v.normal);
-                 
-                
+                     o.vertex = UnityObjectToClipPos(v.vertex + _InkSize * v.normal);
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-             return fixed4(1.0,0.0,0.0,1.0);
+                return _InkColor;
+
             }
-            ENDCG
+         ENDCG
         }
 
         Pass
         {
-            Cull Front 
-            
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            
-
             #include "UnityCG.cginc"
 
             struct appdata
@@ -82,6 +81,7 @@ Shader"Guidev/ToonShader"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
+                o.worldNormal = UnityObjectToWorldNormal(v.normal);
                 return o;
             }
 
