@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class Stickyplatform1 : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name == "Player")
+    
+        void OnTriggerEnter(Collider other)
         {
-         collision.gameObject.transform.parent = transform;
+            other.transform.SetParent(transform);
         }
 
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.name == "Player")
+        void OnTriggerExit(Collider other)
         {
-            collision.gameObject.transform.SetParent(null);
+            other.transform.SetParent(null);
         }
 
-    }
+
+    
 }

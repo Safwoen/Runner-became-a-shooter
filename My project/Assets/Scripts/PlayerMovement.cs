@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 	//Private Floats
-	private float wallRunGravity = 1f, maxSlopeAngle = 35f, wallRunRotation, slideSlowdown = 0.2f, actualWallRotation, wallRotationVel, desiredX, xRotation, sensMultiplier = 1f, jumpCooldown = 0.25f, x, y, vel;
+	private float wallRunGravity = 0.5f, maxSlopeAngle = 35f, wallRunRotation, slideSlowdown = 0.2f, actualWallRotation, wallRotationVel, desiredX, xRotation, sensMultiplier = 1f, jumpCooldown = 0.25f, x, y, vel;
 
 	//Private bools
 	private bool readyToJump, jumping, sprinting, crouching, wallRunning, cancelling, readyToWallrun = true, airborne, onGround, surfing, cancellingGrounded, cancellingWall, cancellingSurf;
