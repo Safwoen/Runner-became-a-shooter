@@ -102,26 +102,27 @@ public class FPSController : MonoBehaviour
         dashing = false; //stops player from spamming dash and going super speed
     }
 
-    private void OnTriggerEnter(Collider Other)
-    {
-        if (Other.tag == "Respawn")
-        {
-            transform.position = Startingpoint.transform.position;        }
-
-        if (Other.gameObject.tag == "bullet")
-        {
-            Destroy(Other.gameObject);
-        }
-
-    }
+   
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         transform.parent = hit.gameObject.transform;
     }
 
-    private void OnCollisionEnter(Collision collision)
+   
+
+    private void OnTriggerEnter(Collider Other)
     {
+        if (Other.tag == "Respawn")
+        {
+            transform.position = Startingpoint.transform.position;
+        }
+
+        if (Other.gameObject.tag == "bullet")
+        {
+            Destroy(Other.gameObject);
+            transform.position = Startingpoint.transform.position;
+        }
 
     }
 }
