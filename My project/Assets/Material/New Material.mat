@@ -73,14 +73,14 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Shades: 4.2
+    - _Shades: 6.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Albedo: {r: 0.8301887, g: 0, b: 0.81164324, a: 1}
+    - _Albedo: {r: 0.9339623, g: 0.6123621, b: 0.92637724, a: 1}
     - _Color: {r: 0.8641269, g: 0.08597365, b: 0.8679245, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _InkColor: {r: 0, g: 0, b: 0, a: 0}
